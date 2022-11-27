@@ -1,0 +1,55 @@
+name: Github Actions
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+        version:
+          - stable
+          - devel
+
+    steps:
+    - name: Checkout repository and submodules
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
+    - name: Cache choosenim
+      id: cache-choosenim
+      uses: actions/cache@v1
+      with:
+        path: ~/.choosenim
+        key: ${{ runner.os }}-choosenim-stable
+
+    - name: Cache nimble
+      id: cache-nimble
+      uses: actions/cache@v1
+      with:
+        path: ~/.nimble
+        key: ${{ runner.os }}-nimble-stable
+
+    - name: Setup Nim
+      uses: iffy/install-nim@v4.1.3
+      with:
+        version: ${{ matrix.version }}
+
+    - name: Print Nim version
+      run: nim -v
+    - name: Print Nimble version
+      run: nimble -v
+    - name: Nimble build
+      run: nimble build -Y --verbose
+    - name: Run install
+      run: nimble install -Y
+    - name: Run tests
+      run: nimble test -y
+    - name: Run tests orc
+      run: nimble test --mm:orc -y
