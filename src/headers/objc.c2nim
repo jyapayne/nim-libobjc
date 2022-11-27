@@ -1,0 +1,26 @@
+#nep1
+#skipinclude
+#skipcomments
+#cdecl
+#dynlib libobjc
+#def __Nullable
+#def _Nullable
+#def _Nonnull
+#def OBJC_ISA_AVAILABILITY
+#def OBJC_TYPES_DEFINED 0
+#def OBJC_OLD_DISPATCH_PROTOTYPES 0
+#def OBJC_EXPORT
+#def OBJC_AVAILABLE(a,b,c,d,e)
+#assumeifistrue
+#assumendef __OBJC__
+#def OBJC_ARC_UNAVAILABLE
+#def OBJC_ARM64_UNAVAILABLE
+#def __unsafe_unretained
+#def OBJC_RETURNS_RETAINED
+#def OBJC_ENUM(_type, _name) _type _name; enum
+#def __OSX_DEPRECATED(a, b, c)
+#def __IOS_DEPRECATED(a, b, c)
+#def __TVOS_DEPRECATED(a, b, c)
+#def __WATCHOS_DEPRECATED(a, b, c)
+#def OBJC_OSX_DEPRECATED_OTHERS_UNAVAILABLE(a, b, c)
+#mangle "'_C_'{.*}" "C_$1"
